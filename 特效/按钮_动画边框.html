@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>按钮边框动画</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* 布局 */
+            .draw-border {
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* 基本属性 */
+            button {
+                border: 0; /* 去除按钮的边框 */
+                background: none; /* 去除按钮的默认背景 */
+                outline: none; /* 去除点击后的默认边框 */
+                text-transform: uppercase;
+                color: #4361ee;
+                font-weight: bold;
+                padding: 10px 20px;
+                box-sizing: border-box;
+                position: relative;
+            }
+
+            /* 设置伪元素的公共属性 */
+            button::before,
+            button::after {
+                /* 继承父级的box-sizing */
+                box-sizing: inherit;
+                position: absolute;
+                content: '';
+                border: 2px solid transparent;
+
+                /* 初始化宽高为0 */
+                width: 0;
+                height: 0;
+            }
+
+            /* 设置before伪元素的位置在左上角，会有2px的小点，所以设置transparent，等hover再设置颜色 */
+            button::before {
+                top: 0;
+                left: 0;
+            }
+
+            /* 设置after伪元素的位置在右下角*/
+            button::after {
+                bottom: 0;
+                right: 0;
+            }
+
+            /* 设置hover后伪元素的宽高为100% */
+            button:hover::before,
+            button:hover::after {
+                width: 100%;
+                height: 100%;
+            }
+
+            /* 对 设置hover后伪元素的宽高为100% 做过渡效果，这样才有动画的效果 */
+            button:hover::before {
+                border-top-color: #4361ee;
+                border-right-color: #4361ee;
+
+                /* 解释：宽度在0.2秒内达到100%，高度在0.2秒内达到100%，后面的0.2s是高度延迟0.3秒再执行，这样就形成了动画效果*/
+                transition: width 0.2s ease-out, height 0.2s ease-out 0.2s;
+            }
+
+            button:hover::after {
+                border-bottom-color: #4361ee;
+                border-left-color: #4361ee;
+
+                /* 因为hover::after时设置了颜色，小点会显示出来，所以也要对border-color做延时效果，0.4秒后执行（0.4秒是hover::before执行完成的时间），动画开始再显示出来 */
+                transition: border-color 0s ease-out 0.4s,
+                    width 0.2s ease-out 0.4s, height 0.2s ease-out 0.6s;
+            }
+
+            /* 总结：主要学习伪元素与过渡效果的搭配使用，动画本质上也是：“时间的艺术”，在什么时候操作什么点，先后执行有讲究，而过渡效果可以处理先后顺序，就是一个动画脚本*/
+        </style>
+    </head>
+
+    <body>
+        <div class="draw-border">
+            <button>Hover me</button>
+        </div>
+    </body>
+</html>
