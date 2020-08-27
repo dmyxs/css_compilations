@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .border-btn {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button {
+            border: 0;
+            outline: none;
+            text-transform: uppercase;
+            color: white;
+            background: #5f55af;
+            padding: 10px 20px;
+            transition: border-radius 1s;
+            position: relative;
+        }
+
+        button:hover {
+            border-bottom-right-radius: 50px;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 10px;
+        }
+
+        /*总结：这个效果很简单：就是对border边框的四个角做单独处理*/
+    </style>
+</head>
+
+<body>
+    <div class="border-btn">
+        <button>hover me</button>
+    </div>
+</body>
+
+</html>
